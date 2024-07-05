@@ -1,0 +1,49 @@
+.app {
+  max-width: 8000px; /* Adjust max-width as per your design needs */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.app-nav {
+  text-align: center; /* Center align the navigation */
+}
+
+.app-nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center align the flex items */
+}
+
+.app-nav ul li {
+  margin: 0 10px;
+}
+
+.app-nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.app-nav ul li a:hover {
+  color: #4caf50;
+}
+
+.app-content {
+  margin-top: 20px;
+}

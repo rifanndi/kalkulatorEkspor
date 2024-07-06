@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
 .app {
-  max-width: 8000px; /* Adjust max-width as per your design needs */
+  max-width: 800px; /* Adjust max-width as per your design needs */
   margin: 20px auto;
   padding: 20px;
   background-color: #f0f0f0;
@@ -16,6 +18,13 @@
 .app-header h1 {
   font-size: 2rem;
   color: #333;
+}
+
+.description {
+  text-align: center;
+  font-family: "Roboto", sans-serif; /* Using Google Font */
+  margin-bottom: 20px;
+  padding: 0 20px;
 }
 
 .app-nav {
@@ -36,7 +45,7 @@
 .app-nav ul li a {
   text-decoration: none;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 0.2rem;
   transition: color 0.3s ease;
 }
 
@@ -46,4 +55,20 @@
 
 .app-content {
   margin-top: 20px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-btn:hover {
+  color: #4caf50;
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
 }

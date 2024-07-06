@@ -1,30 +1,30 @@
-import {} from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css"; // File CSS untuk styling
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Navbar.css"; // Import your CSS file
 
 const Navbar = () => {
   return (
     <nav className="app-nav">
       <ul>
         <li>
-          <Link to="/exwork">
+          <NavLink exact to="/exwork" activeClassName="active-nav">
             <button className="nav-btn">EX WORK</button>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/fob">
+          <NavLink to="/fob" activeClassName="active-nav">
             <button className="nav-btn">FOB</button>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/cif">
+          <NavLink to="/cif" activeClassName="active-nav">
             <button className="nav-btn">CIF</button>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/cnf">
+          <NavLink to="/cnf" activeClassName="active-nav">
             <button className="nav-btn">CNF</button>
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

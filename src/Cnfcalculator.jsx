@@ -108,7 +108,9 @@ const CnfCalculator = () => {
         />
       </div>
       <div className="input-group">
-        <span className="input-description">Biaya trucking dalam Rp :</span>
+        <span className="input-description">
+          Biaya trucking pabrik/Gudang ke pelabuhandalam Rp :
+        </span>
         <input
           type="text"
           value={biayaTrucking}

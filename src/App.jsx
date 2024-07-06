@@ -27,6 +27,15 @@ const App = () => {
             <Route path="/cnf" element={<CnfCalculator />} />
           </Routes>
         </main>
+        <div className="description">
+          <p>
+            "Transform your export calculations with our state-of-the-art tool,
+            designed to simplify complex export cost computations. Whether it's
+            EX WORK, FOB, CIF, or CNF, our calculators provide precise and
+            reliable results. Elevate your business efficiency with our
+            intuitive interface and streamlined processes."
+          </p>
+        </div>
       </div>
     </Router>
   );

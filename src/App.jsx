@@ -1,16 +1,47 @@
 // App.js
 
-import {} from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExWorkCalculator from "./ExWorkCalculator";
 import FobCalculator from "./FobCalculator";
 import CifCalculator from "./CifCalculator";
-//import Navbar from "./Navbar.jsx";
-import "./App.css"; // File CSS untuk styling App
-import Navbar from "./Navbar";
 import CnfCalculator from "./Cnfcalculator";
+import Navbar from "./Navbar";
+import axios from "axios";
+import "./App.css"; // File CSS untuk styling App
 
 const App = () => {
+  // Axios configuration with interceptors
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response) {
+        // Handle HTTP error responses (e.g., 404, 500)
+        console.error("HTTP Error:", error.response.status);
+        // Implement logic to show user-friendly message
+      } else if (error.request) {
+        // Handle no response received
+        console.error("No response received:", error.request);
+        // Implement logic for user feedback
+      } else {
+        // Handle other errors
+        console.error("Error:", error.message);
+        // Implement logic for user feedback
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  useEffect(() => {
+    // Example usage of axios with the configured interceptors
+    axios
+      .get("/api/example")
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <Router>
       <div className="app">

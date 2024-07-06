@@ -9,8 +9,7 @@ const CnfCalculator = () => {
   const [biayaDokumen, setBiayaDokumen] = useState("");
   const [biayaTerminal, setBiayaTerminal] = useState("");
   const [biayaFreight, setBiayaFreight] = useState("");
-  const [hargaCnf, setHargaCnf] = useState("");
-  const [biayaAsuransi, setBiayaAsuransi] = useState("");
+
   const [total, setTotal] = useState(null);
 
   const formatNumber = (value) => {

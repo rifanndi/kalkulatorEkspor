@@ -1,7 +1,7 @@
 .app-nav {
   padding: 10px;
 
-  background-color: #f0f0f0;
+  background-color: #f0f0f06d;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -25,7 +25,7 @@
   border-radius: 4%;
   background-color: #646362; /* Green */
   border: none;
-  color: white;
+  color: rgb(50, 49, 49);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -37,7 +37,7 @@
 }
 
 .nav-btn:hover {
-  background-color: #a4e8ee; /* Darker green */
+  background-color: #b2c4c6; /* Darker green */
 }
 
 .nav-btn:active {

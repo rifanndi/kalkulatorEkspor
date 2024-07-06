@@ -1,13 +1,16 @@
 import { useState } from "react";
 import "./Calculator.css"; // File CSS untuk styling
 
-const FobCalculator = () => {
+const CnfCalculator = () => {
   const [hargaGudang, setHargaGudang] = useState("");
   const [jumlahKiriman, setJumlahKiriman] = useState("");
   const [biayaLoading, setBiayaLoading] = useState("");
   const [biayaTrucking, setBiayaTrucking] = useState("");
   const [biayaDokumen, setBiayaDokumen] = useState("");
   const [biayaTerminal, setBiayaTerminal] = useState("");
+  const [biayaFreight, setBiayaFreight] = useState("");
+  const [hargaCnf, setHargaCnf] = useState("");
+  const [biayaAsuransi, setBiayaAsuransi] = useState("");
   const [total, setTotal] = useState(null);
 
   const formatNumber = (value) => {
@@ -16,45 +19,10 @@ const FobCalculator = () => {
     return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const handleChangeHargaGudang = (e) => {
+  const handleChange = (setter) => (e) => {
     const value = e.target.value;
     if (value === "" || /^[\d.]+$/.test(value)) {
-      setHargaGudang(formatNumber(value));
-    }
-  };
-
-  const handleChangeJumlahKiriman = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^[\d.]+$/.test(value)) {
-      setJumlahKiriman(formatNumber(value));
-    }
-  };
-
-  const handleChangeBiayaLoading = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^[\d.]+$/.test(value)) {
-      setBiayaLoading(formatNumber(value));
-    }
-  };
-
-  const handleChangeBiayaTrucking = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^[\d.]+$/.test(value)) {
-      setBiayaTrucking(formatNumber(value));
-    }
-  };
-
-  const handleChangeBiayaDokumen = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^[\d.]+$/.test(value)) {
-      setBiayaDokumen(formatNumber(value));
-    }
-  };
-
-  const handleChangeBiayaTerminal = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^[\d.]+$/.test(value)) {
-      setBiayaTerminal(formatNumber(value));
+      setter(formatNumber(value));
     }
   };
 
@@ -70,21 +38,31 @@ const FobCalculator = () => {
     const parsedBiayaTrucking = parseNumber(biayaTrucking);
     const parsedBiayaDokumen = parseNumber(biayaDokumen);
     const parsedBiayaTerminal = parseNumber(biayaTerminal);
+    const parsedBiayaFreight = parseNumber(biayaFreight);
+    const parsedHargaCnf = parseNumber(hargaCnf);
+    const parsedBiayaAsuransi = parseNumber(biayaAsuransi);
+
     if (
       parsedHargaGudang >= 0 &&
       parsedJumlahKiriman >= 0 &&
       parsedBiayaLoading >= 0 &&
       parsedBiayaTrucking >= 0 &&
       parsedBiayaDokumen >= 0 &&
-      parsedBiayaTerminal >= 0
+      parsedBiayaTerminal >= 0 &&
+      parsedBiayaFreight >= 0 &&
+      parsedHargaCnf >= 0 &&
+      parsedBiayaAsuransi >= 0
     ) {
-      const totalFob =
+      const totalCif =
         parsedHargaGudang * parsedJumlahKiriman +
         parsedBiayaLoading +
         parsedBiayaTrucking +
         parsedBiayaDokumen +
-        parsedBiayaTerminal;
-      setTotal(totalFob);
+        parsedBiayaTerminal +
+        parsedBiayaFreight +
+        parsedHargaCnf +
+        parsedBiayaAsuransi;
+      setTotal(totalCif);
     } else {
       setTotal(null);
     }
@@ -100,7 +78,7 @@ const FobCalculator = () => {
           </div>
         </div>
       )}
-      <h2 className="calculator-title">FOB Calculator</h2>
+      <h2 className="calculator-title">CNF Calculator</h2>
       <div className="input-group">
         <span className="input-description">
           Harga gudang dalam unit/KG dalam Rp :
@@ -108,7 +86,7 @@ const FobCalculator = () => {
         <input
           type="text"
           value={hargaGudang}
-          onChange={handleChangeHargaGudang}
+          onChange={handleChange(setHargaGudang)}
         />
       </div>
       <div className="input-group">
@@ -118,7 +96,7 @@ const FobCalculator = () => {
         <input
           type="text"
           value={jumlahKiriman}
-          onChange={handleChangeJumlahKiriman}
+          onChange={handleChange(setJumlahKiriman)}
         />
       </div>
       <div className="input-group">
@@ -126,17 +104,15 @@ const FobCalculator = () => {
         <input
           type="text"
           value={biayaLoading}
-          onChange={handleChangeBiayaLoading}
+          onChange={handleChange(setBiayaLoading)}
         />
       </div>
       <div className="input-group">
-        <span className="input-description">
-          Biaya trucking pabrik/Gudang ke pelabuhan dalam Rp :
-        </span>
+        <span className="input-description">Biaya trucking dalam Rp :</span>
         <input
           type="text"
           value={biayaTrucking}
-          onChange={handleChangeBiayaTrucking}
+          onChange={handleChange(setBiayaTrucking)}
         />
       </div>
       <div className="input-group">
@@ -144,7 +120,7 @@ const FobCalculator = () => {
         <input
           type="text"
           value={biayaDokumen}
-          onChange={handleChangeBiayaDokumen}
+          onChange={handleChange(setBiayaDokumen)}
         />
       </div>
       <div className="input-group">
@@ -154,9 +130,18 @@ const FobCalculator = () => {
         <input
           type="text"
           value={biayaTerminal}
-          onChange={handleChangeBiayaTerminal}
+          onChange={handleChange(setBiayaTerminal)}
         />
       </div>
+      <div className="input-group">
+        <span className="input-description">Biaya freight dalam Rp :</span>
+        <input
+          type="text"
+          value={biayaFreight}
+          onChange={handleChange(setBiayaFreight)}
+        />
+      </div>
+
       <button onClick={calculateTotal} className="calculate-btn">
         Hitung Total
       </button>
@@ -164,4 +149,4 @@ const FobCalculator = () => {
   );
 };
 
-export default FobCalculator;
+export default CnfCalculator;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Calculator.css"; // File CSS untuk styling
-//import Navbar from "./Navbar";
 
 const CifCalculator = () => {
   const [hargaGudang, setHargaGudang] = useState("");
@@ -10,109 +9,58 @@ const CifCalculator = () => {
   const [biayaDokumen, setBiayaDokumen] = useState("");
   const [biayaTerminal, setBiayaTerminal] = useState("");
   const [biayaFreight, setBiayaFreight] = useState("");
-  const [hargaCnf, setHargaCnf] = useState("");
   const [biayaAsuransi, setBiayaAsuransi] = useState("");
   const [total, setTotal] = useState(null);
 
-  const handleChangeHargaGudang = (e) => {
+  const formatNumber = (value) => {
+    if (!value) return "";
+    const cleanedValue = value.replace(/\D/g, "");
+    return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  const handleChange = (setter) => (e) => {
     const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (
-      value === "" ||
-      (parseFloat(value) >= 0 && value.indexOf(".") === value.lastIndexOf("."))
-    ) {
-      setHargaGudang(value); // Update nilai hargaGudang jika valid
+    if (value === "" || /^[\d.]+$/.test(value)) {
+      setter(formatNumber(value));
     }
   };
 
-  const handleChangeJumlahKiriman = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseInt(value) >= 0) {
-      setJumlahKiriman(value); // Update nilai jumlahKiriman jika valid
-    }
-  };
-
-  const handleChangeBiayaLoading = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaLoading(value); // Update nilai biayaLoading jika valid
-    }
-  };
-
-  const handleChangeBiayaTrucking = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaTrucking(value); // Update nilai biayaTrucking jika valid
-    }
-  };
-
-  const handleChangeBiayaDokumen = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaDokumen(value); // Update nilai biayaDokumen jika valid
-    }
-  };
-
-  const handleChangeBiayaTerminal = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaTerminal(value); // Update nilai biayaTerminal jika valid
-    }
-  };
-
-  const handleChangeBiayaFreight = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaFreight(value); // Update nilai biayaFreight jika valid
-    }
-  };
-
-  const handleChangeHargaCnf = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setHargaCnf(value); // Update nilai hargaCnf jika valid
-    }
-  };
-
-  const handleChangeBiayaAsuransi = (e) => {
-    const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseFloat(value) >= 0) {
-      setBiayaAsuransi(value); // Update nilai biayaAsuransi jika valid
-    }
+  const parseNumber = (formattedValue) => {
+    if (!formattedValue) return 0;
+    return parseFloat(formattedValue.replace(/\./g, ""));
   };
 
   const calculateTotal = () => {
+    const parsedHargaGudang = parseNumber(hargaGudang);
+    const parsedJumlahKiriman = parseNumber(jumlahKiriman);
+    const parsedBiayaLoading = parseNumber(biayaLoading);
+    const parsedBiayaTrucking = parseNumber(biayaTrucking);
+    const parsedBiayaDokumen = parseNumber(biayaDokumen);
+    const parsedBiayaTerminal = parseNumber(biayaTerminal);
+    const parsedBiayaFreight = parseNumber(biayaFreight);
+    const parsedBiayaAsuransi = parseNumber(biayaAsuransi);
+
     if (
-      hargaGudang !== "" &&
-      jumlahKiriman !== "" &&
-      biayaLoading !== "" &&
-      biayaTrucking !== "" &&
-      biayaDokumen !== "" &&
-      biayaTerminal !== "" &&
-      biayaFreight !== "" &&
-      hargaCnf !== "" &&
-      biayaAsuransi !== ""
+      parsedHargaGudang >= 0 &&
+      parsedJumlahKiriman >= 0 &&
+      parsedBiayaLoading >= 0 &&
+      parsedBiayaTrucking >= 0 &&
+      parsedBiayaDokumen >= 0 &&
+      parsedBiayaTerminal >= 0 &&
+      parsedBiayaFreight >= 0 &&
+      parsedBiayaAsuransi >= 0
     ) {
       const totalCif =
-        parseFloat(hargaGudang) * parseInt(jumlahKiriman) +
-        parseFloat(biayaLoading) +
-        parseFloat(biayaTrucking) +
-        parseFloat(biayaDokumen) +
-        parseFloat(biayaTerminal) +
-        parseFloat(biayaFreight) +
-        parseFloat(hargaCnf) +
-        parseFloat(biayaAsuransi);
+        parsedHargaGudang * parsedJumlahKiriman +
+        parsedBiayaLoading +
+        parsedBiayaTrucking +
+        parsedBiayaDokumen +
+        parsedBiayaTerminal +
+        parsedBiayaFreight +
+        parsedBiayaAsuransi;
       setTotal(totalCif);
     } else {
-      setTotal(null); // Reset total jika input kosong
+      setTotal(null);
     }
   };
 
@@ -132,9 +80,9 @@ const CifCalculator = () => {
           Harga gudang dalam unit/KG dalam Rp :
         </span>
         <input
-          type="number"
+          type="text"
           value={hargaGudang}
-          onChange={handleChangeHargaGudang}
+          onChange={handleChange(setHargaGudang)}
         />
       </div>
       <div className="input-group">
@@ -142,33 +90,35 @@ const CifCalculator = () => {
           Jumlah kiriman dalam unit/KG :
         </span>
         <input
-          type="number"
+          type="text"
           value={jumlahKiriman}
-          onChange={handleChangeJumlahKiriman}
+          onChange={handleChange(setJumlahKiriman)}
         />
       </div>
       <div className="input-group">
         <span className="input-description">Biaya loading dalam Rp :</span>
         <input
-          type="number"
+          type="text"
           value={biayaLoading}
-          onChange={handleChangeBiayaLoading}
+          onChange={handleChange(setBiayaLoading)}
         />
       </div>
       <div className="input-group">
-        <span className="input-description">Biaya trucking dalam Rp :</span>
+        <span className="input-description">
+          Biaya trucking pabrik/Gudang ke pelabuhandalam Rp :
+        </span>
         <input
-          type="number"
+          type="text"
           value={biayaTrucking}
-          onChange={handleChangeBiayaTrucking}
+          onChange={handleChange(setBiayaTrucking)}
         />
       </div>
       <div className="input-group">
         <span className="input-description">Biaya dokumen dalam Rp :</span>
         <input
-          type="number"
+          type="text"
           value={biayaDokumen}
-          onChange={handleChangeBiayaDokumen}
+          onChange={handleChange(setBiayaDokumen)}
         />
       </div>
       <div className="input-group">
@@ -176,29 +126,25 @@ const CifCalculator = () => {
           Biaya terminal handling dalam Rp :
         </span>
         <input
-          type="number"
+          type="text"
           value={biayaTerminal}
-          onChange={handleChangeBiayaTerminal}
+          onChange={handleChange(setBiayaTerminal)}
         />
       </div>
       <div className="input-group">
         <span className="input-description">Biaya freight dalam Rp :</span>
         <input
-          type="number"
+          type="text"
           value={biayaFreight}
-          onChange={handleChangeBiayaFreight}
+          onChange={handleChange(setBiayaFreight)}
         />
-      </div>
-      <div className="input-group">
-        <span className="input-description">Harga CNF dalam Rp </span>
-        <input type="number" value={hargaCnf} onChange={handleChangeHargaCnf} />
       </div>
       <div className="input-group">
         <span className="input-description">Biaya asuransi dalam Rp : </span>
         <input
-          type="number"
+          type="text"
           value={biayaAsuransi}
-          onChange={handleChangeBiayaAsuransi}
+          onChange={handleChange(setBiayaAsuransi)}
         />
       </div>
       <button onClick={calculateTotal} className="calculate-btn">

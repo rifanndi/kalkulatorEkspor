@@ -1,7 +1,6 @@
-// Navbar.js
-
 import {} from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css"; // File CSS untuk styling
 
 const Navbar = () => {
   return (
@@ -20,6 +19,11 @@ const Navbar = () => {
         <li>
           <Link to="/cif">
             <button className="nav-btn">CIF</button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/cnf">
+            <button className="nav-btn">CNF</button>
           </Link>
         </li>
       </ul>

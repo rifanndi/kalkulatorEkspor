@@ -1,37 +1,44 @@
 import { useState } from "react";
 import "./Calculator.css"; // File CSS untuk styling
-//import Navbar from "./Navbar";
 
 const ExWorkCalculator = () => {
   const [hargaGudang, setHargaGudang] = useState("");
   const [jumlahKiriman, setJumlahKiriman] = useState("");
   const [total, setTotal] = useState(null);
 
+  const formatNumber = (value) => {
+    if (!value) return "";
+    const cleanedValue = value.replace(/\D/g, "");
+    return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   const handleChangeHargaGudang = (e) => {
     const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (
-      value === "" ||
-      (parseFloat(value) >= 0 && value.indexOf(".") === value.lastIndexOf("."))
-    ) {
-      setHargaGudang(value); // Update nilai hargaGudang jika valid
+    if (value === "" || /^[\d.]+$/.test(value)) {
+      setHargaGudang(formatNumber(value));
     }
   };
 
   const handleChangeJumlahKiriman = (e) => {
     const value = e.target.value;
-    // Validasi agar nilai tidak kurang dari 0
-    if (value === "" || parseInt(value) >= 0) {
-      setJumlahKiriman(value); // Update nilai jumlahKiriman jika valid
+    if (value === "" || /^[\d.]+$/.test(value)) {
+      setJumlahKiriman(formatNumber(value));
     }
   };
 
+  const parseNumber = (formattedValue) => {
+    if (!formattedValue) return 0;
+    return parseFloat(formattedValue.replace(/\./g, ""));
+  };
+
   const calculateTotal = () => {
-    if (hargaGudang !== "" && jumlahKiriman !== "") {
-      const totalExWork = parseFloat(hargaGudang) * parseInt(jumlahKiriman);
+    const parsedHargaGudang = parseNumber(hargaGudang);
+    const parsedJumlahKiriman = parseNumber(jumlahKiriman);
+    if (parsedHargaGudang >= 0 && parsedJumlahKiriman >= 0) {
+      const totalExWork = parsedHargaGudang * parsedJumlahKiriman;
       setTotal(totalExWork);
     } else {
-      setTotal(null); // Reset total jika input kosong
+      setTotal(null);
     }
   };
 
@@ -51,23 +58,20 @@ const ExWorkCalculator = () => {
           Harga gudang dalam unit/KG dalam Rp :
         </span>
         <input
-          type="number"
-          inputMode="numeric" // Tambahkan inputMode="numeric" di sini
+          type="text"
           value={hargaGudang}
-          onChange={handleChangeHargaGudang} // Gunakan fungsi handleChangeHargaGudang
+          onChange={handleChangeHargaGudang}
         />
       </div>
       <div className="input-group">
         <span className="input-description">
           Jumlah kiriman dalam unit/KG :
         </span>
-        <span>
-          <input
-            type="number"
-            value={jumlahKiriman}
-            onChange={handleChangeJumlahKiriman} // Gunakan fungsi handleChangeJumlahKiriman
-          />
-        </span>
+        <input
+          type="text"
+          value={jumlahKiriman}
+          onChange={handleChangeJumlahKiriman}
+        />
       </div>
       <button onClick={calculateTotal} className="calculate-btn">
         Hitung Total

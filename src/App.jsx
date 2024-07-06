@@ -8,6 +8,7 @@ import CifCalculator from "./CifCalculator";
 //import Navbar from "./Navbar.jsx";
 import "./App.css"; // File CSS untuk styling App
 import Navbar from "./Navbar";
+import CnfCalculator from "./Cnfcalculator";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/exwork" element={<ExWorkCalculator />} />
             <Route path="/fob" element={<FobCalculator />} />
             <Route path="/cif" element={<CifCalculator />} />
+            <Route path="/cnf" element={<CnfCalculator />} />
           </Routes>
         </main>
       </div>

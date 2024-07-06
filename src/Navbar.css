@@ -64,6 +64,6 @@
 
   .nav-btn {
     font-size: 14px; /* Mengurangi ukuran font untuk layar kecil */
-    padding: 8px 16px; /* Mengurangi padding tombol */
+    padding: 8px 1px; /* Mengurangi padding tombol */
   }
 }

@@ -6,6 +6,7 @@ import ExWorkCalculator from "./ExWorkCalculator";
 import FobCalculator from "./FobCalculator";
 import CifCalculator from "./CifCalculator";
 import CnfCalculator from "./Cnfcalculator";
+import Abadi from "./Cnfcalculatorr.jsx";
 import Navbar from "./Navbar";
 import axios from "axios";
 import "./App.css"; // File CSS untuk styling App
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/fob" element={<FobCalculator />} />
             <Route path="/cif" element={<CifCalculator />} />
             <Route path="/cnf" element={<CnfCalculator />} />
+            <Route path="/cni" element={<Abadi />} />
           </Routes>
         </main>
         <div className="description">

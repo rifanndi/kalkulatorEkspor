@@ -26,6 +26,11 @@ const Navbar = () => {
             <button className="nav-btn">CNF</button>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/cni" activeClassName="active-nav">
+            <button className="nav-btn">CNiF</button>
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
